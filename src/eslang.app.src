@@ -1,0 +1,7 @@
+{application, eslang,
+ [
+  {description, "Erlang S-Lang Bindidngs"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [kernel,stdlib]}
+ ]}.
