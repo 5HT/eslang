@@ -196,6 +196,7 @@ static void update_display (void)
 	
 	if (line != NULL) 
 	  {
+	     SLsmg_write_string ("\xD1\x84");
 	     SLsmg_write_string (line->data);
 	     line = line->next;
 	  }

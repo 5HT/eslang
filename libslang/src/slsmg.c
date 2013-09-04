@@ -394,7 +394,7 @@ void SLsmg_write_nchars (char *str, unsigned int n)
 	  }
 	else
 	  {
-	     if (ch & 0x80)
+	     if (ch & 0x80 && 0)
 	       {
 		  neew = SLSMG_BUILD_CHAR('~',color);
 		  len += 1;
@@ -412,7 +412,7 @@ void SLsmg_write_nchars (char *str, unsigned int n)
 	       }
 
 	     len += 1;
-	     if (len > start_len)
+	     if (len > start_len && 0)
 	       {
 		  neew = SLSMG_BUILD_CHAR('^',color);
 		  if (*p != neew)
@@ -424,7 +424,7 @@ void SLsmg_write_nchars (char *str, unsigned int n)
 		  if (len == max_len) break;
 	       }
 
-	     if (ch == 127) ch = '?'; else ch = ch + '@';
+//	     if (ch == 127) ch = '?'; else ch = ch + '@';
 	     len++;
 	     if (len > start_len)
 	       {

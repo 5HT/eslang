@@ -150,6 +150,9 @@
 #define SIGNAL_CHECK           103
 
 
+#define SL_BLOCK_SIGNALS       155
+#define SL_UNBLOCK_SIGNALS     156
+#define SL_MAKE_STRING         157
 
 
 /*  read/write global variables */
@@ -673,6 +676,14 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
     }
     case TT_REVERSE_VIDEO: {
 	SLtt_reverse_video (get_int32(buf));
+	return;
+    }
+    case SL_BLOCK_SIGNALS: {
+        SLsig_block_signals ();
+	return;
+    }
+    case SL_UNBLOCK_SIGNALS: {
+        SLsig_unblock_signals ();
 	return;
     }
     case TT_BOLD_VIDEO: {

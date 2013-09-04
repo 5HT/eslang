@@ -573,6 +573,14 @@ tt_tigetent(Str) ->
     p_cmd(P, ?TT_TIGETENT,[{string, Str}],string).
 
 
+block_signals() ->
+    P = gp(),
+    p_cmd(P, ?SL_BLOCK_SIGNALS,[],void).
+
+unblock_signals() ->
+    P = gp(),
+    p_cmd(P, ?SL_UNBLOCK_SIGNALS,[],void).
+
 tt_tigetstr() ->
     exit(nyi),
     P = gp(),

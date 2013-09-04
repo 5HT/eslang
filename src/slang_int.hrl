@@ -125,6 +125,8 @@
 -define(SIGNAL,                  102).
 -define(SIGNAL_CHECK,            103).
 
+-define(SL_BLOCK_SIGNALS,        155).
+-define(SL_UNBLOCK_SIGNALS,      156).
 
 %% int macros
 
