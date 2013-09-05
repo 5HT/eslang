@@ -1,13 +1,10 @@
 PRIV := ../priv
-LIBSLANG := ../slang-2.2.4
-LIBS := $(LIBSLANG)/src/objs/libslang.a
 
-ERL_CPPFLAGS := $(shell erl -noinput -eval \
+ERL_CFLAGS := $(shell erl -noinput -eval \
 			'io:format("-I~s/erts-~s/include", [code:root_dir(), erlang:system_info(version)]), halt(0)')
 
-override CFLAGS += -Wall -fPIC
-override CPPFLAGS += -I$(LIBSLANG)/src $(ERL_CPPFLAGS)
-override LDFLAGS +=
+override CFLAGS += -Wall -fPIC $(ERL_CFLAGS)
+override LDFLAGS += -lslang
 
 all : $(PRIV)/slang_drv.so
 
