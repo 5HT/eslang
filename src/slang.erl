@@ -382,14 +382,10 @@ mk_args([{smg_char_type, Str} |Tail]) when is_list(Str) ->
 
 open_slang_driver() ->
     erl_ddll:start(),
-    Path=case code:priv_dir(ermacs) of
-	     {error, _} ->
-		 CodePath = code:which(slang),
-		 string:substr(CodePath, 1, string:rstr(CodePath, "ebin/slang.beam")-1) ++ "priv";
-	     Dir ->
-		 Dir
-	 end,
-    case erl_ddll:load_driver(Path, "slang_drv") of
+    CodePath = code:which(slang),
+    Path = string:substr(CodePath, 1, string:rstr(CodePath, "ebin/slang.beam")-1) ++ "priv",
+    error_logger:info_msg("Path: ~p~n",[Path]),
+    case erl_ddll:load_driver(Path, "eslang_drv") of
 	ok ->
 	    ok;
 	{error,{already_started, _}} ->
@@ -398,7 +394,7 @@ open_slang_driver() ->
 	    io:format("Failed to open driver: ~s~n", [erl_ddll:format_error(What)]),
 	    exit({nodriver, What})
     end,
-    P = open_port({spawn, slang_drv}, []),
+    P = open_port({spawn, eslang_drv}, []),
     P.
 
 

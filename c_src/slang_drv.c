@@ -373,6 +373,7 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 //	    SLang_RL_EOF_Char=y; return;
 //	case esl_rline_quit:
 //	    SLang_Rline_Quit=y; return;
+
 	case esl_screen_rows:
 	case  esl_screen_cols :
 	    return;
@@ -947,7 +948,7 @@ void sl_ready_input(ErlDrvData drv_data, ErlDrvEvent fd)
  * Initialize and return a driver entry struct
  */
 
-DRIVER_INIT(slang_drv)
+DRIVER_INIT(eslang_drv)
 {
     memset(&sl_erl_drv_entry, 0, sizeof(sl_erl_drv_entry));
 
@@ -955,7 +956,7 @@ DRIVER_INIT(slang_drv)
     sl_erl_drv_entry.stop = sl_stop;
     sl_erl_drv_entry.output = sl_output;
     sl_erl_drv_entry.ready_input = sl_ready_input;
-    sl_erl_drv_entry.driver_name = "slang_drv";
+    sl_erl_drv_entry.driver_name = "eslang_drv";
     sl_erl_drv_entry.extended_marker = ERL_DRV_EXTENDED_MARKER;
     sl_erl_drv_entry.major_version = ERL_DRV_EXTENDED_MAJOR_VERSION;
     sl_erl_drv_entry.minor_version = ERL_DRV_EXTENDED_MINOR_VERSION;

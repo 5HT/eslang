@@ -11,6 +11,7 @@
 -compile(export_all).
 
 run() ->
+    slang:tt_get_terminfo(),
     slang:init_tty(7,0,1),
     slang:set_abort_signal(null),
     loop().
