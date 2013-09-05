@@ -1,4 +1,4 @@
 #!/bin/bash
 
-erl -pa ebin +A 100 -s ex1 run
+erl -pa ebin +A 100 -s ex2
 
