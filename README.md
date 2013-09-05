@@ -23,10 +23,10 @@ NOTE: make sure you build eslang_drv.so linking against static libslang_pic.a
 Credits
 -------
 
-Claes Wikstrom
-David N. Welton
-Robin Haberkorn
-Maxim Sokhatsky
-Vitaly Takmazov
+* Claes Wikstrom
+* David N. Welton
+* Robin Haberkorn
+* Maxim Sokhatsky
+* Vitaly Takmazov
 
 OM A HUM
