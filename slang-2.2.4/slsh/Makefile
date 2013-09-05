@@ -1,6 +1,6 @@
 #-*-sh-*-
 CC		= gcc
-CFLAGS		= -g -O2  
+CFLAGS		= -g -O2 -fPIC  
 LDFLAGS		=  -Wl,-export-dynamic
 CONFIG_DIR	= /home/maxim/synrc/pie/deps/eslang/slang-2.2.4
 OBJDIR		= $(ARCH)objs

@@ -1,5 +1,5 @@
 PRIV := ../priv
-LIBSLANG := ../slang-unicode
+LIBSLANG := ../slang-2.2.4
 LIBS := $(LIBSLANG)/src/objs/libslang.a
 
 ERL_CPPFLAGS := $(shell erl -noinput -eval \

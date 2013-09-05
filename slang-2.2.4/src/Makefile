@@ -3,7 +3,7 @@
 # ANSI C compiler
 #---------------------------------------------------------------------------
 CC              = gcc
-CFLAGS 		= -g -O2 -fPIC
+CFLAGS 		= -g -O2 -fPIC 
 LDFLAGS		= 
 #-----------------------------------------------------------------------------
 # System library that contains functions for dynamic linking (-ldl)

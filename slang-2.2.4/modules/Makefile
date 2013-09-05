@@ -7,7 +7,7 @@ SLFILES = slsmg termios select fcntl varray socket pcre png iconv \
   onig rand csv zlib fork sysconf
 #---------------------------------------------------------------------------
 CC		= gcc
-CFLAGS		= -g -O2  
+CFLAGS		= -g -O2 -fPIC  
 LDFLAGS		= 
 CC_SHARED 	= $(CC) $(CFLAGS) -shared -fPIC
 CONFIG_DIR	= /home/maxim/synrc/pie/deps/eslang/slang-2.2.4

@@ -4,7 +4,7 @@
 # Choose a C compiler.  It must understand prototypes.
 #-----------------------------------------------------------------------------
 CC = gcc
-CFLAGS = -g -O2 
+CFLAGS = -g -O2 -fPIC 
 LDFLAGS =  -Wl,-export-dynamic
 #-----------------------------------------------------------------------------
 # Directory where the various libraries are located.
