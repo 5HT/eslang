@@ -307,6 +307,7 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	flow_ctl = get_int32(buf); buf+= 4;
 	opost = get_int32(buf); buf+= 4;
 	ret = SLang_init_tty (abort_char,flow_ctl, opost);
+        SLutf8_enable(1),
 	ret_int(port, ret);
 	return;
     }
