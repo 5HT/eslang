@@ -21,10 +21,10 @@ Install Prerequisites
 Credits
 -------
 
-Claes Wikstrom
-David N. Welton
-Robin Haberkorn
-Maxim Sokhatsky
-Vitaly Takmazov
+* Claes Wikstrom
+* David N. Welton
+* Robin Haberkorn
+* Maxim Sokhatsky
+* Vitaly Takmazov
 
 OM A HUM
