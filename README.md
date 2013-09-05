@@ -18,6 +18,8 @@ Install Prerequisites
 
     $ sudo apt-get install libslang2-pic
 
+NOTE: make sure you build eslang_drv.so linking against static libslang_pic.a
+
 Credits
 -------
 
