@@ -13,7 +13,6 @@
 #endif
 
 
-
 /* Standard set of integer macros  .. */
 
 #define get_int32(s) ntohl(*(uint32_t *)(s))
@@ -229,14 +228,14 @@ static int x_to_sig(int x)
 }
 
 
-SLsmg_Char_Type *decode_smg_char_type(char **buf)
+//SLsmg_Char_Type 
+SLwchar_Type *decode_smg_char_type(char **buf)
 {
-    static SLsmg_Char_Type mbuf[256];
+//    static SLsmg_Char_Type
+    static SLwchar_Type mbuf[256];
     int i;
     int len = get_int32(*buf); *buf+=4;
-    for(i=0; i<len; i++) {
-	mbuf[i++] =  get_int16(*buf); *buf+=2;
-    }
+    for(i=0; i<len; i++) { mbuf[i++] =  get_int16(*buf); *buf+=2; }
     return mbuf;
 }
 
@@ -369,10 +368,10 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	    SLKeyBoard_Quit=y; return;
 	case esl_last_key_char:
 	    SLang_Last_Key_Char=y; return;
-	case esl_rl_eof_char:
-	    SLang_RL_EOF_Char=y; return;
-	case esl_rline_quit:
-	    SLang_Rline_Quit=y; return;
+//	case esl_rl_eof_char:
+//	    SLang_RL_EOF_Char=y; return;
+//	case esl_rline_quit:
+//	    SLang_Rline_Quit=y; return;
 	case esl_screen_rows:
 	case  esl_screen_cols :
 	    return;
@@ -381,7 +380,7 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	case  esl_newline_behaviour:
 	    SLsmg_Newline_Behavior=y; return;
 	case esl_error:
-	    SLang_Error=y; return;
+	    SLang_set_error(y); return;
 	case esl_version:
 	    return;
 	case  esl_backspace_moves :
@@ -417,12 +416,12 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	case esl_last_key_char:
 	    ret_int(port, SLang_Last_Key_Char);
 	    return;
-	case esl_rl_eof_char:
-	    ret_int(port, SLang_RL_EOF_Char);
-	    return;
-	case esl_rline_quit:
-	    ret_int(port, SLang_Rline_Quit);
-	    return;
+//	case esl_rl_eof_char:
+//	    ret_int(port, SLang_RL_EOF_Char);
+//	    return;
+//	case esl_rline_quit:
+//	    ret_int(port, SLang_Rline_Quit);
+//	    return;
 	case esl_screen_rows:
 	    ret_int(port, SLtt_Screen_Rows);
 	    return;
@@ -436,7 +435,7 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	    ret_int(port, SLsmg_Newline_Behavior);
 	    return;
 	case esl_error:
-	    ret_int(port, SLang_Error);
+	    ret_int(port, SLang_get_error());
 	    return;
 	case esl_version:
 	    ret_int(port, SLang_Version);
@@ -518,13 +517,14 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
     }
     case SMG_WRITE_WRAPPED_STRING: {
 	t1 = buf;
+//        t1 = buf;
 	buf += strlen(t1) + 1;
-	x = get_int32(buf); buf+= 4;
-	y = get_int32(buf); buf+= 4;
-	z = get_int32(buf); buf+= 4;
-	v = get_int32(buf); buf+= 4;
-	w = get_int32(buf); buf+= 4;
-	SLsmg_write_wrapped_string(t1, x,y,z,v,w);
+	x = (int)get_int32(buf); buf+= 4;
+	y = (int)get_int32(buf); buf+= 4;
+	z = (unsigned int)get_int32(buf); buf+= 4;
+	v = (unsigned int)get_int32(buf); buf+= 4;
+	w = (int)get_int32(buf); buf+= 4;
+	SLsmg_write_wrapped_string((SLuchar_Type *)t1, x,y,z,v,w);
 	return;
     }
     case SMG_CLS: {
@@ -568,7 +568,7 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	return;
     }
     case SMG_CHAR_AT: {
-	ret_int(port, SLsmg_char_at());
+//	ret_int(port, SLsmg_char_at());
 	return;
     }
     case SMG_SET_SCREEN_START: {
@@ -620,19 +620,21 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	return;
     }
     case SMG_WRITE_COLOR_CHARS: {
-	SLsmg_Char_Type * sl;
-	sl = decode_smg_char_type(&buf);
-	x = get_int32(buf); buf+= 4;
-	SLsmg_write_color_chars(sl, x);
+//	SLsmg_Char_Type * sl;
+//        SLwchar_Type *sl;
+//	sl = decode_smg_char_type(&buf);
+//	x = get_int32(buf); buf+= 4;
+//	SLsmg_write_color_chars(sl, x);
 	return;
     }
     case SMG_READ_RAW: {
 	x = get_int32(buf); buf+= 4;
-	t1 = malloc((2*x) + 2 + 1);
-	y = SLsmg_read_raw((unsigned short*)t1 +1, x);
+        SLsmg_Char_Type *read_buf = malloc((2*x*10) + 2 + 1);
+//	t1 = malloc((2*x) + 2 + 1);
+	y = SLsmg_read_raw(read_buf +1, x);
 	t1[1] = 1;
-	driver_output(port, t1, y+1);
-	free(t1);
+	driver_output(port, read_buf, y+1);
+	free(read_buf);
 	return;
     }
     case SMG_WRITE_RAW: {
@@ -798,8 +800,8 @@ static void sl_output(ErlDrvData drv_data, char *buf, int len)
 	return;
     }
     case TT_SET_COLOR_ESC: {
-	x = get_int32(buf); buf+=4;
-	SLtt_set_color_esc (x, buf);
+//	x = get_int32(buf); buf+=4;
+//	SLtt_set_color_esc (x, buf);
 	return;
     }
     case TT_WIDE_WIDTH: {
