@@ -13,12 +13,11 @@ to do with the slang lib itself.
 It's know to compile and run with slang version 2.2.4.
 The API is one-to-one withe the normal C-api to slanglib.
 
-Install Prerequisites
+Install
 ---------------------
 
     $ sudo apt-get install libslang2-pic
-
-NOTE: make sure you build eslang_drv.so linking against static libslang_pic.a
+    $ rebar compile
 
 Credits
 -------
