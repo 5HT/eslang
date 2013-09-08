@@ -1,20 +1,16 @@
-PRIV := ../priv
+LINUX=$(shell uname | grep Linux | wc -l | xargs echo)
+DEPS=../deps
 
-# sudo apt-get install libslang2-pic
+ERLANG_HOME=/usr/local/lib/erlang
+SLANG_FLAGS=
+INSTALL_PATH=$(CURDIR)/../deps/slang
 
-LIBS := /usr/lib/libslang_pic.a
+all: $(DEPS)/slang-2.2.4/src/objs/libslang.a
 
-ERL_CFLAGS := $(shell erl -noinput -eval \
-			'io:format("-I~s/erts-~s/include", [code:root_dir(), erlang:system_info(version)]), halt(0)')
+$(DEPS)/slang:
+	@mkdir $(DEPS); cd $(DEPS) ; \
+	curl ftp://ftp.fu-berlin.de/pub/unix/misc/slang/v2.2/slang-2.2.4.tar.gz | tar xzf -
 
-override CFLAGS += -Wall -fPIC $(ERL_CFLAGS)
-override CPPFLAGS += -I$(LIBSLANG)/src $(ERL_CPPFLAGS)
-override LDFLAGS += -fpic -lslang_pic
-
-all : $(PRIV)/eslang_drv.so
-
-$(PRIV)/eslang_drv.so : slang_drv.o
-	$(CC) -shared $(LDFLAGS) -o $@ $^ $(LIBS)
-
-clean:
-	$(RM) -f *.o $(PRIV)/eslang_drv.so
+$(DEPS)/slang-2.2.4/src/objs/libslang.a: $(DEPS)/slang
+	@cd $(DEPS)/slang-2.2.4 && ./configure --prefix $(INSTALL_PATH) \
+	&& make static && make install-static
