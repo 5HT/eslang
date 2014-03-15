@@ -13,10 +13,19 @@ to do with the slang lib itself.
 It's know to compile and run with slang version 2.2.4.
 The API is one-to-one withe the normal C-api to slanglib.
 
-Install
----------------------
+Ubuntu Install
+--------------
 
     $ sudo apt-get install libslang2-pic
+    $ rebar compile
+
+Mac 
+-----------
+
+    $ curl ftp://ftp.fu-berlin.de/pub/unix/misc/slang/v2.2/slang-2.2.4.tar.gz | tar xzf -
+    $ ./configure --prefix=/usr
+    $ make static
+    $ sudo make install-static
     $ rebar compile
 
 Credits
